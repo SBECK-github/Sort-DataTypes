@@ -95,7 +95,7 @@ the method. All sort_METHOD have both a forward and reverse sort:
    $flag = sort_METHOD(\@list [,@args]);
    $flag = sort_rev_METHOD(\@list [,@args]);
 
-where B<@args> are any additional arguments used for the sort.  These
+where C<@args> are any additional arguments used for the sort.  These
 will be described below.
 
 Corresponding to every sort_METHOD routine is a cmp_METHOD routine
@@ -118,32 +118,32 @@ As an example, the following two calls are identical:
    $flag = sort_alphabetic(\@list);
    $flag = sort_by_method('alphabetic',\@list);
 
-The value of B<$flag> for a sort method is undef (if there is an
-error) or 1 if the sort succeeds (and in this case, B<@list> has been
-reordered to be in the sorted order).  The value of B<$flag> for a cmp
+The value of C<$flag> for a sort method is undef (if there is an
+error) or 1 if the sort succeeds (and in this case, C<@list> has been
+reordered to be in the sorted order).  The value of C<$flag> for a cmp
 method is undef (if there is an error) or -1, 0, or 1.
 
-The contents of B<@args> depends on the type of sort method and
+The contents of C<@args> depends on the type of sort method and
 are described in the sections below.
 
 =head1 UNAMBIGUOUS METHODS
 
 As described above, unambiguous methods do not use any secondary sort
-methods.  For each of these sort methods, the contents of B<@args>
+methods.  For each of these sort methods, the contents of C<@args>
 are:
 
    @args = (@method_args, $hash)
 
-and for cmp methods, the contents of B<@args> are:
+and for cmp methods, the contents of C<@args> are:
 
    @args = (@method_args)
 
-B<@method_args> is a list of arguments that will be passed to the
+C<@method_args> is a list of arguments that will be passed to the
 method.  Most unambiguous methods do not require any additional
 arguments, but if they do, they would be here.  The list of possible
 arguments are described in the documentation for each method.
 
-B<$hash> is an optional hash reference.  All sort_METHOD functions can
+C<$hash> is an optional hash reference.  All sort_METHOD functions can
 be used to sort a list using a hash.  For example, in the following
 case:
 
@@ -152,13 +152,13 @@ case:
 
    sort_numerical(\@list,\%hash);
 
-would result in B<@list> containing:
+would result in C<@list> containing:
 
    (ick, foo, bar)
 
 since those correspond to numerical values of (1,3,5) respectively.
 
-Each element in B<@list> must be a key in B<%hash>, and the value of
+Each element in C<@list> must be a key in C<%hash>, and the value of
 that key must be of the appropriate type.
 
 The following methods are supported:
@@ -379,9 +379,9 @@ if you do not wish to sort beyond a method that is ambiguous.
    $flag = cmp_function($x,$y [,@args]);
    $flag = cmp_rev_function($x,$y [,@args]);
 
-This is a catch-all sort function. B<@method_args> contains a single
+This is a catch-all sort function. C<@method_args> contains a single
 argument.  It is either a coderef or the name of a function suitable
-to compar two elements and return -1, 0, or 1 depending on the order
+to compare two elements and return -1, 0, or 1 depending on the order
 of the elements.
 
 The following both work:
@@ -398,18 +398,18 @@ package (i.e. "package::functionname").
 =head1 AMBIGUOUS METHODS
 
 As described above, ambiguous methods do use a secondary sort methods.
-For these sort methods, the contents of B<@args> are:
+For these sort methods, the contents of C<@args> are:
 
    @args = (@method_args, $hash, @extra_cmp_info)
 
-and for cmp methods, the contents of B<@args> are:
+and for cmp methods, the contents of C<@args> are:
 
    @args = (@method_args, @extra_cmp_info)
 
-B<@method_args> and B<$hash> are similar to those described above for
+C<@method_args> and C<$hash> are similar to those described above for
 unambiguous methods.
 
-The contents of B<@extra_cmp_info> are:
+The contents of C<@extra_cmp_info> are:
 
    @extra_cmp_info  = ( [$method, @method_args],
                         [$method, @method_args],
@@ -418,7 +418,7 @@ The contents of B<@extra_cmp_info> are:
 
 Since an ambiguous method cannot always determine the order of two
 elements, a backup method (or methods) may be specified.  The backup
-sort method contains a method name (B<$method>) and any arguments
+sort method contains a method name (C<$method>) and any arguments
 required for that method.  The method must be either ambiguous or
 unambiguous.  If it is ambiguous, an additional backup method may be
 used.  If a method is unambiguous, no additional sort methods should
@@ -453,8 +453,8 @@ The following methods are supported:
    $flag = cmp_length($x,$y [,@args]);
    $flag = cmp_rev_length($x,$y [,@args]);
 
-These take strings and compare them by length. If they are the same length, it sorts them
-by a secondary method (which defaults to 'alphabetic').
+These take strings and compare them by length. If they are the same length, it
+sorts them by a secondary method (which defaults to 'alphabetic').
 
 =back
 
@@ -464,15 +464,15 @@ As described above, split-element methods split an element into
 pieces, and each of the pieces are compared separately using a
 secondary sort method.
 
-For these sort methods, the contents of B<@args> are:
+For these sort methods, the contents of C<@args> are:
 
    @args = (@method_args, $hash, @extra_sort_info)
 
-and for cmp methods, the contents of B<@args> are:
+and for cmp methods, the contents of C<@args> are:
 
    @args = (@method_args, @extra_cmp_info)
 
-B<@method_args> and B<$hash> are similar to those described for
+C<@method_args> and C<$hash> are similar to those described for
 unambiguous methods.
 
 A split-element method is not truly a sort method.  It is simply
@@ -480,8 +480,8 @@ a method for splitting an element into parts.  Then, every part
 must be sorted.
 
 As such, every split-element method will use other sort methods
-for actually sorting the pieces.  If no B<@extra_sort_info> or
-B<@extra_cmp_info> is supplied, it will typically default to
+for actually sorting the pieces.  If no C<@extra_sort_info> or
+C<@extra_cmp_info> is supplied, it will typically default to
 alphabetic sort.
 
 If other sort methods are supplied, any other ambiguous, or
@@ -541,7 +541,7 @@ The following split-element methods exist:
    $flag = cmp_split($x,$y [,@args]);
    $flag = cmp_rev_split($x,$y [,@args]);
 
-The B<@method_args> segments of the arguments contain two optional
+The C<@method_args> segments of the arguments contain two optional
 arguments.
 
 The first argument is either 'lms' or 'rms' (all options are case
@@ -550,7 +550,7 @@ pieces are sorted starting at the left.  If 'rms' is given, they are
 sorted from the right.  'lms' is the default.
 
 The second argument is a regexp.  It can be passed in as a string that
-will be turned into a regular expression, or as an actaul
+will be turned into a regular expression, or as an actual
 regexp, so one argument could be either of:
 
    \s+
@@ -568,9 +568,9 @@ previous versions of this module.
 These are deprecated, and may be removed at some point in the
 future.
 
-These can all be done trivially with the B<split> functions listed
+These can all be done trivially with the C<split> functions listed
 above (and all are coded as wrappers around those functions), so
-slightly better performance can be obtained by using the B<split>
+slightly better performance can be obtained by using the C<split>
 functions directly.
 
 =over 4
@@ -597,7 +597,7 @@ and a regular expression of qr/\./ .  In other words, the following are equivale
    $flag = sort_domain(\@list);
    $flag = sort_split(\@list,'rms',qr/\./);
 
-A single argument can be passed in in B<@method_args> containing an alternate
+A single argument can be passed in in C<@method_args> containing an alternate
 regular expression if the elements should be split on something other than dots,
 but the priority will always be 'rms'.
 
@@ -663,7 +663,7 @@ and a regular expression of qr/\// .  In other words, the following are equivale
    $flag = sort_path(\@list);
    $flag = sort_split(\@list,'lms',qr/\//);
 
-A single argument can be passed in in B<@method_args> containing an alternate
+A single argument can be passed in in C<@method_args> containing an alternate
 regular expression if the elements should be split on something other than slashes,
 but the priority will always be 'lms'.
 
@@ -715,11 +715,11 @@ For example, you could sort lines of the format:
 first by date (the 1st field), alphabetically by last name (2nd field), and
 alphabetically by first name (3rd field).
 
-For these sort/cmp methods, the contents of B<@args> are:
+For these sort/cmp methods, the contents of C<@args> are:
 
    @args = ( $sep, [@field_args], [@field_args], ...)
 
-B<$sep> is a regular expression used to split an element into fields.  It can
+C<$sep> is a regular expression used to split an element into fields.  It can
 be entered as either a regular expression or a string that is turned into a regular
 expression:
 
@@ -728,15 +728,15 @@ expression:
 
 It is optional, and defaults to qr/\s+/ (i.e. split on whitespace).
 
-B<@field_args> describes how to sort one of the fields.  It is of the
+C<@field_args> describes how to sort one of the fields.  It is of the
 form:
 
    @field_args = ( $n, $hash, @extra_cmp_info )
 
-where B<$n> is an integer and tells which field to sort (fields start
-at 0), $hash is an optional hashref to use for this field (it's keys
+where C<$n> is an integer and tells which field to sort (fields start
+at 0), C<$hash> is an optional hashref to use for this field (it's keys
 are the values of the field, NOT the values of the element), and
-B<@extra_cmp_info> is described in the ambiguous methods section
+C<@extra_cmp_info> is described in the ambiguous methods section
 above:
 
    @extra_cmp_info  = ( [$method, @method_args],
@@ -779,9 +779,9 @@ previous versions of this module.
 These are deprecated, and may be removed at some point in the
 future.
 
-These can all be done trivially with the B<partial> functions listed above (and
+These can all be done trivially with the C<partial> functions listed above (and
 all are coded as wrappers around those functions), so slightly better performance
-can be obtained by using the B<split> functions directly.
+can be obtained by using the C<split> functions directly.
 
 =over 4
 
@@ -801,14 +801,14 @@ can be obtained by using the B<split> functions directly.
    $flag = cmp_line($x,$y,$n [,$sep]);
    $flag = cmp_rev_line($x,$y,$n [,$sep]);
 
-These take a list of lines and sort on the Nth field using $sep as the
+These take a list of lines and sort on the Nth field using C<$sep> as the
 regular expression splitting the lines into fields. Fields are
-numbered starting at 0.  If no $sep is given, it defaults to white
+numbered starting at 0.  If no C<$sep> is given, it defaults to white
 space.
 
 This is included for backward compatibility only and does not allow sorting
 on more than one field, or specifying the sort method for that field.
-It is recommended that you use the B<partial> methods above.
+It is recommended that you use the C<partial> methods above.
 
 =item B<sort_numline>
 
@@ -845,7 +845,7 @@ numerical, and alphabetically otherwise.
    $flag = cmp_valid_method($string);
 
 These are identical and return 1 if there is a valid sort method named
-$string in the module. For example, there is a function
+C<$string> in the module. For example, there is a function
 "sort_numerical" defined in this modules, but there is no function
 "sort_foobar", so the following would occur:
 
